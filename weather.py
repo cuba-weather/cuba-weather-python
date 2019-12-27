@@ -33,6 +33,7 @@ def main():
     print(c.getTemperature())
     print(c.getHumidity())
     print(c.getPressure())
+    print(c.getGeneral())
 
 if __name__ == '__main__':
     main()
