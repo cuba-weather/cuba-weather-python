@@ -1,6 +1,8 @@
+#!/usr/bin/env python3
 import urllib.request
 import urllib.parse
 import json
+from sys import argv
 
 API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
 
@@ -27,7 +29,8 @@ class RCApiClient:
         return self.data['data']['descriptionWeather']
 
 def main():
-    c = RCApiClient("Santa Clara")
+    location = argv[1]
+    c = RCApiClient(location)
     print(c.getTemperature())
 
 if __name__ == '__main__':
