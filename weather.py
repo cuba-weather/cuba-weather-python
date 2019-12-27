@@ -9,11 +9,10 @@ class RCApiClient:
     
     def __init__(self, province):
         response = urllib.request.urlopen(API.format(location=province))
-        self.data = json.loads(reponse.read())
+        self.data = json.loads(response.read())
 
     def getTemperature(self):
         return self.data['data']['temp']
-
 
     def getHumidity(self):
         return self.data['data']['humidity']
@@ -26,7 +25,7 @@ class RCApiClient:
 
 def main():
     c = RCApiClient("Provincia de Cienfuegos")
-    print(RCApiClient.getTemperature())
+    print(c.getTemperature())
 
 if __name__ == '__main__':
     main()
