@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 import urllib.request
 import urllib.parse
 import json
@@ -8,14 +7,17 @@ from sys import argv
 API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
 
 class RCApiClient:
+    
     def __init__(self, province):
-        escapedProv = urllib.parse.quote_plus(province)
+        escapedProv = urllib.parse.quote(province)
         url = API.format(location=escapedProv)
+        print(url)
         response = urllib.request.urlopen(url)
-        self.data = json.loads(response.read()) 
+        self.data = json.loads(response.read())
 
     def getTemperature(self):
         return self.data['data']['temp']
+
 
     def getHumidity(self):
         return self.data['data']['humidity']
