@@ -7,7 +7,7 @@ API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
 class RCApiClient:
     
     def __init__(self, province):
-        escapedProv = urllib.parse.quote_plus(province)
+        escapedProv = province.replace(' ', '%20')
         url = API.format(location=escapedProv)
         print(url)
         response = urllib.request.urlopen(url)
@@ -27,7 +27,7 @@ class RCApiClient:
         return self.data['data']['descriptionWeather']
 
 def main():
-    c = RCApiClient("Cienfuegos")
+    c = RCApiClient("Santa Clara")
     print(c.getTemperature())
 
 if __name__ == '__main__':
