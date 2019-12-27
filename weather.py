@@ -11,7 +11,6 @@ class RCApiClient:
     def __init__(self, province):
         escapedProv = urllib.parse.quote(province)
         url = API.format(location=escapedProv)
-        print(url)
         response = urllib.request.urlopen(url)
         self.data = json.loads(response.read())
 
@@ -32,6 +31,8 @@ def main():
     location = argv[1]
     c = RCApiClient(location)
     print(c.getTemperature())
+    print(c.getHumidity())
+    print(c.getPressure())
 
 if __name__ == '__main__':
     main()
