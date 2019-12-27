@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import urllib.request
 import urllib.parse
 import json
@@ -17,7 +18,6 @@ class RCApiClient:
     def getTemperature(self):
         return self.data['data']['temp']
 
-
     def getHumidity(self):
         return self.data['data']['humidity']
 
@@ -29,11 +29,13 @@ class RCApiClient:
 
 def main():
     location = argv[1]
-    c = RCApiClient(location)
-    print(c.getTemperature())
-    print(c.getHumidity())
-    print(c.getPressure())
-    print(c.getGeneral())
+
+    if(location):
+        c = RCApiClient(location)
+        print(c.getGeneral())
+        print("Temperatura: {temp}°C".format(temp=c.getTemperature()))
+        print("Humedad: {hum}%".format(hum=c.getHumidity()))
+        print("Presión atmosférica: {hpa} hpa".format(hpa=c.getPressure()))
 
 if __name__ == '__main__':
     main()
