@@ -7,7 +7,7 @@ API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
 class RCApiClient:
     
     def __init__(self, province):
-        escapedProv = province.replace(' ', '%20')
+        escapedProv = urllib.parse.quote(province)
         url = API.format(location=escapedProv)
         print(url)
         response = urllib.request.urlopen(url)
