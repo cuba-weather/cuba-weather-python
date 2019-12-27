@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 
-import urllib
+from urllib import request
 import json
 
 API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
 
 class RCApiClient:
-    
     def __init__(self, province):
-        response = urllib.request.urlopen(API.format(location=province))
+        response = request.urlopen(API.format(location=province))
         self.data = json.loads(response.read())
 
     def getTemperature(self):
@@ -24,7 +23,7 @@ class RCApiClient:
         return self.data['data']['descriptionWeather']
 
 def main():
-    c = RCApiClient("Provincia de Cienfuegos")
+    c = RCApiClient("Provincia%20de%20Cienfuegos")
     print(c.getTemperature())
 
 if __name__ == '__main__':
