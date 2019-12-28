@@ -13,16 +13,6 @@ class RCApiClient:
     data = False
 
     def __init__(self, province):
-<<<<<<< HEAD
-        escapedProv = urllib.parse.quote(province)
-        
-        try:
-            url = API.format(location=escapedProv)
-            response = urllib.request.urlopen(url)
-            self.data = json.loads(response.read())
-        except urllib.error.HTTPError as e:
-            print(e)
-=======
         escaped_prov = urllib.parse.quote(province)
         url = API.format(location=escaped_prov)
         try:
@@ -34,7 +24,6 @@ class RCApiClient:
         except HTTPError as ex:
             print('No se ha encontrado la ciudad' if ex.code == 404 else ex)
             exit(-1)
->>>>>>> 9d9b745ca5ce21faf5c093b5f7c3ee996661ee9b
 
     def getTemperature(self):
         return self.data['data']['temp']
