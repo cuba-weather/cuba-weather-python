@@ -22,8 +22,10 @@ class RCApiClient:
                 content = content.decode()
             self.data = json.loads(content)
         except HTTPError as ex:
-            print('No se ha encontrado la ciudad' if ex.code == 404 else ex)
-            exit(-1)
+            if ex.code == 404:
+                raise Exception('No se ha encontrado la ciudad')
+            else:
+                raise ex
 
     def getTemperature(self):
         return self.data['data']['temp']
@@ -59,5 +61,5 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    except:
-        pass
+    except Exception as e:
+        print(e)
