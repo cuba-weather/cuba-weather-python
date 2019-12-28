@@ -33,17 +33,21 @@ class RCApiClient:
 
 
 def main():
-    if len(argv) != 2:
+    if len(argv) not in [2, 3]:
         print('Se requiere al menos un parámetro!')
+        exit(-1)
 
     location = argv[1]
+    response_format = argv[2] if len(argv) == 3 else False
 
-    if location:
-        c = RCApiClient(location)
+    c = RCApiClient(location)
+    if location and not response_format:
         print(c.getGeneral())
         print("Temperatura: {temp}°C".format(temp=c.getTemperature()))
         print("Humedad: {hum}%".format(hum=c.getHumidity()))
         print("Presión atmosférica: {hpa} hpa".format(hpa=c.getPressure()))
+    elif response_format:
+        print(response_format.format(temp=c.getTemperature(), hum=c.getHumidity(), hpa=c.getPressure()))
 
 
 if __name__ == '__main__':
