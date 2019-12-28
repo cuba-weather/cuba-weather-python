@@ -8,7 +8,6 @@ from urllib.error import HTTPError
 
 API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
 
-
 class RCApiClient:
     data = False
 
@@ -39,6 +38,7 @@ class RCApiClient:
     def getGeneral(self):
         return self.data['data']['descriptionWeather']
 
+import finder
 
 def main():
     if len(argv) not in [2, 3]:
@@ -47,6 +47,10 @@ def main():
 
     location = argv[1]
     response_format = argv[2] if len(argv) == 3 else False
+
+    location = finder.get_location(location)
+
+    print("Solicitando datos de " + location)
 
     c = RCApiClient(location)
     if location and not response_format:
