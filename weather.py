@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
+import argparse
 import json
 import urllib.parse
 import urllib.request
-from sys import argv
 from urllib.error import HTTPError
 
 API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
@@ -22,8 +22,7 @@ class RCApiClient:
                 content = content.decode()
             self.data = json.loads(content)
         except HTTPError as ex:
-            print('No se ha encontrado la ciudad' if ex.code == 404 else ex)
-            exit(-1)
+            raise Exception('No se ha encontrado la ciudad' if ex.code == 404 else ex)
 
     def getTemperature(self):
         return self.data['data']['temp']
@@ -39,21 +38,23 @@ class RCApiClient:
 
 
 def main():
-    if len(argv) not in [2, 3]:
-        print('Se requiere al menos un parámetro!')
-        exit(-1)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('province', type=str, help='Province name')
+    parser.add_argument("-v", "--version", help="Shows program version", action='store_true')
+    parser.add_argument("-t", "--temperature", help="Shows province temperature", action='store_true')
+    parser.add_argument("-u", "--humidity", help="Shows province humidity", action='store_true')
+    parser.add_argument("-p", "--pressure", help="Shows province pressure", action='store_true')
 
-    location = argv[1]
-    response_format = argv[2] if len(argv) == 3 else False
-
-    c = RCApiClient(location)
-    if location and not response_format:
-        print(c.getGeneral())
+    args = parser.parse_args()
+    c = RCApiClient(args.province)
+    if args.version:
+        print("this is myprogram version 0.1")
+    if args.temperature:
         print("Temperatura: {temp}°C".format(temp=c.getTemperature()))
+    if args.humidity:
         print("Humedad: {hum}%".format(hum=c.getHumidity()))
+    if args.pressure:
         print("Presión atmosférica: {hpa} hpa".format(hpa=c.getPressure()))
-    elif response_format:
-        print(response_format.format(temp=c.getTemperature(), hum=c.getHumidity(), hpa=c.getPressure()))
 
 
 if __name__ == '__main__':
