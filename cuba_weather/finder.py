@@ -1,6 +1,6 @@
-f = open('finder/locations.txt')
+from . import locations
 
-locations = sorted(f.read().split('\n'), key=len)
+locations = sorted(locations.locations, key=len)
 
 def get_location(user_input):
     lower_input = user_input.lower()
