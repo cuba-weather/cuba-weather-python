@@ -14,7 +14,7 @@ API = "https://www.redcuba.cu/api/weather_get_summary/{location}"
 class RCApiClient:
     data = False
 
-    def __init__(self, location):
+    def __init__(self, location: str):
         escaped_location = urllib.parse.quote(location)
         url = API.format(location=escaped_location)
         response = urllib.request.urlopen(url)
@@ -23,16 +23,16 @@ class RCApiClient:
             content = content.decode()
         self.data = json.loads(content)
 
-    def getTemperature(self):
+    def getTemperature(self) -> str:
         return self.data["data"]["temp"]
 
-    def getHumidity(self):
+    def getHumidity(self) -> str:
         return self.data["data"]["humidity"]
 
-    def getPressure(self):
+    def getPressure(self) -> str:
         return self.data["data"]["pressure"]
 
-    def getGeneral(self):
+    def getGeneral(self) -> str:
         return self.data["data"]["descriptionWeather"]
 
 
