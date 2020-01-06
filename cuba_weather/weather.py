@@ -17,14 +17,11 @@ class RCApiClient:
     def __init__(self,location):
         escaped_location = urllib.parse.quote(location)
         url = API.format(location=escaped_location)
-        try:
-            response = urllib.request.urlopen(url)
-            content = response.read()
-            if type(content) == bytes:
-                content = content.decode()
-            self.data = json.loads(content)
-        except HTTPError as ex:
-            raise Exception('Location not found' if ex.code == 404 else ex)
+        response = urllib.request.urlopen(url)
+        content = response.read()
+        if type(content) == bytes:
+            content = content.decode()
+        self.data = json.loads(content)
 
     def getTemperature(self):
         return self.data['data']['temp']
@@ -49,7 +46,16 @@ def main():
     parser.add_argument("-g", "--general", help="Shows location general information", action='store_true')
 
     args = parser.parse_args()
-    c = RCApiClient(args.location)
+
+    try:
+        c = RCApiClient(args.location)
+    except HTTPError as ex:
+        if ex.code == 404:
+            print("Location not found, try checking your orthography or use a near by location.")
+        else:
+            raise Exception(ex)
+        return
+
     if args.version:
         print("this is myprogram version 0.1")
     if args.general:
