@@ -6,15 +6,15 @@ import urllib.parse
 import urllib.request
 from urllib.error import HTTPError
 
-__version__ = '0.0.2'
+__version__ = "0.0.2"
 
-API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
+API = "https://www.redcuba.cu/api/weather_get_summary/{location}"
 
 
 class RCApiClient:
     data = False
 
-    def __init__(self,location):
+    def __init__(self, location):
         escaped_location = urllib.parse.quote(location)
         url = API.format(location=escaped_location)
         response = urllib.request.urlopen(url)
@@ -24,26 +24,26 @@ class RCApiClient:
         self.data = json.loads(content)
 
     def getTemperature(self):
-        return self.data['data']['temp']
+        return self.data["data"]["temp"]
 
     def getHumidity(self):
-        return self.data['data']['humidity']
+        return self.data["data"]["humidity"]
 
     def getPressure(self):
-        return self.data['data']['pressure']
+        return self.data["data"]["pressure"]
 
     def getGeneral(self):
-        return self.data['data']['descriptionWeather']
+        return self.data["data"]["descriptionWeather"]
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('location', type=str, help='Location name')
-    parser.add_argument("-v", "--version", help="Shows program version", action='store_true')
-    parser.add_argument("-t", "--temperature", help="Shows location temperature", action='store_true')
-    parser.add_argument("-u", "--humidity", help="Shows location humidity", action='store_true')
-    parser.add_argument("-p", "--pressure", help="Shows location pressure", action='store_true')
-    parser.add_argument("-g", "--general", help="Shows location general information", action='store_true')
+    parser.add_argument("location", type=str, help="Location name")
+    parser.add_argument("-v", "--version", help="Shows program version", action="store_true")
+    parser.add_argument("-t", "--temperature", help="Shows location temperature", action="store_true")
+    parser.add_argument("-u", "--humidity", help="Shows location humidity", action="store_true")
+    parser.add_argument("-p", "--pressure", help="Shows location pressure", action="store_true")
+    parser.add_argument("-g", "--general", help="Shows location general information", action="store_true")
 
     args = parser.parse_args()
 
@@ -67,12 +67,19 @@ def main():
     if args.pressure:
         print("Pressure: {hpa} hpa".format(hpa=c.getPressure()))
 
-    if args.location and args.version == False and args.temperature == False and args.humidity == False and args.pressure == False and args.general == False:
+    if (
+        args.location
+        and args.version == False
+        and args.temperature == False
+        and args.humidity == False
+        and args.pressure == False
+        and args.general == False
+    ):
         print(c.getGeneral())
         print("Temperature: {temp}°C".format(temp=c.getTemperature()))
         print("Humidity: {hum}%".format(hum=c.getHumidity()))
         print("Pressure: {hpa} hpa".format(hpa=c.getPressure()))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
