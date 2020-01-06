@@ -8,7 +8,7 @@ from sys import argv
 API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
 
 class RCApiClient:
-    
+
     def __init__(self, province):
         escapedProv = urllib.parse.quote(province)
         url = API.format(location=escapedProv)
@@ -28,6 +28,10 @@ class RCApiClient:
         return self.data['data']['descriptionWeather']
 
 def main():
+    if len(argv) <= 1 or argv[1] == "--help":
+        print("Uso: ./weather.py ubicación")
+        return
+
     location = argv[1]
 
     if(location):
