@@ -2,10 +2,14 @@
 
 Python3 client for [redcuba.cu](https://www.redcuba.cu) weather API
 
+## Install
+
+`pip install git+https://github.com/daxslab/cuba-weather`
+
 ## Usage
 
 ```
-usage: weather.py [-h] [-v] [-t] [-u] [-p] [-g] location
+usage: cuba-weather [-h] [-v] [-t] [-u] [-p] [-g] location
 
 positional arguments:
   location           Location name
