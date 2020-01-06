@@ -6,6 +6,8 @@ import urllib.parse
 import urllib.request
 from urllib.error import HTTPError
 
+__version__ = '0.0.2'
+
 API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
 
 
