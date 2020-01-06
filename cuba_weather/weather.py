@@ -57,7 +57,7 @@ def main():
         return
 
     if args.version:
-        print("this is myprogram version 0.1")
+        print(__version__)
     if args.general:
         print(c.getGeneral())
     if args.temperature:
