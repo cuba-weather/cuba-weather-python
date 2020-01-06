@@ -59,5 +59,12 @@ def main():
     if args.pressure:
         print("Pressure: {hpa} hpa".format(hpa=c.getPressure()))
 
+    if args.location and args.version == False and args.temperature == False and args.humidity == False and args.pressure == False and args.general == False:
+        print(c.getGeneral())
+        print("Temperature: {temp}°C".format(temp=c.getTemperature()))
+        print("Humidity: {hum}%".format(hum=c.getHumidity()))
+        print("Pressure: {hpa} hpa".format(hpa=c.getPressure()))
+
+
 if __name__ == '__main__':
     main()
