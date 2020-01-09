@@ -8,7 +8,7 @@ Python3 client for [redcuba.cu](https://www.redcuba.cu) weather API
 
 ## Usage
 
-```
+```[bash]
 usage: cuba-weather.py [-h] [-v] [-d] [-t] [-u] [-p] [-w] [-g] location
 
 positional arguments:
@@ -17,7 +17,7 @@ positional arguments:
 optional arguments:
   -h, --help         show this help message and exit
   -v, --version      show program version
-  -d, --date         show location date
+  -d, --timestamp    show location timestamp
   -t, --temperature  show location temperature
   -u, --humidity     show location humidity
   -p, --pressure     show location pressure
@@ -26,4 +26,3 @@ optional arguments:
 ```
 
 When just speciying the location and no other arguments, all the available information is displayed.
-
