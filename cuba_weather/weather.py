@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 from argparse import ArgumentParser
+from datetime import datetime
+from dateutil.parser import parse
 from json import loads
 from urllib.error import HTTPError
 from urllib.parse import quote
@@ -21,6 +23,10 @@ class RCApiClient:
         if type(content) == bytes:
             content = content.decode()
         self.data = loads(content)
+
+    @property
+    def date(self) -> datetime:
+        return parse(self.data['data']['dt']['date'])
 
     @property
     def temperature(self) -> str:
@@ -47,6 +53,7 @@ def main():
     parser = ArgumentParser()
     parser.add_argument('location', type=str, help='location name')
     parser.add_argument('-v', '--version', help='show program version', action='store_true')
+    parser.add_argument('-d', '--date', help='show location date', action='store_true')
     parser.add_argument('-t', '--temperature', help='show location temperature', action='store_true')
     parser.add_argument('-u', '--humidity', help='show location humidity', action='store_true')
     parser.add_argument('-p', '--pressure', help='show location pressure', action='store_true')
@@ -68,6 +75,8 @@ def main():
         print(__version__)
     if args.general:
         print(c.general)
+    if args.date:
+        print('Date: {date}'.format(date=c.date))
     if args.temperature:
         print('Temperature: {temp}°C'.format(temp=c.temperature))
     if args.humidity:
@@ -77,10 +86,11 @@ def main():
     if args.wind:
         print('Wind: {wind}'.format(wind=c.wind))
 
-    params = [args.version, args.temperature, args.humidity, args.pressure, args.wind, args.general]
+    params = [args.version, args.date, args.temperature, args.humidity, args.pressure, args.wind, args.general]
     if args.location and not any(params):
         print(c.general)
         print('Temperature: {temp}°C'.format(temp=c.temperature))
+        print('Date: {date}'.format(date=c.date))
         print('Humidity: {hum}%'.format(hum=c.humidity))
         print('Pressure: {hpa} hpa'.format(hpa=c.pressure))
         print('Wind: {wind}'.format(wind=c.wind))
