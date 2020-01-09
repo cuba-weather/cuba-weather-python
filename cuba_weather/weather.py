@@ -41,12 +41,12 @@ class RCApiClient:
 
 def main():
     parser = ArgumentParser()
-    parser.add_argument('location', type=str, help='Location name')
-    parser.add_argument('-v', '--version', help='Shows program version', action='store_true')
-    parser.add_argument('-t', '--temperature', help='Shows location temperature', action='store_true')
-    parser.add_argument('-u', '--humidity', help='Shows location humidity', action='store_true')
-    parser.add_argument('-p', '--pressure', help='Shows location pressure', action='store_true')
-    parser.add_argument('-g', '--general', help='Shows location general information', action='store_true')
+    parser.add_argument('location', type=str, help='location name')
+    parser.add_argument('-v', '--version', help='show program version', action='store_true')
+    parser.add_argument('-t', '--temperature', help='show location temperature', action='store_true')
+    parser.add_argument('-u', '--humidity', help='show location humidity', action='store_true')
+    parser.add_argument('-p', '--pressure', help='show location pressure', action='store_true')
+    parser.add_argument('-g', '--general', help='show location general information', action='store_true')
 
     args = parser.parse_args()
 
