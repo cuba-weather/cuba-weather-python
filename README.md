@@ -20,7 +20,7 @@ optional arguments:
   -t, --temperature  Shows location temperature
   -u, --humidity     Shows location humidity
   -p, --pressure     Shows location pressure
-  -w, --wind.        Shows location wind condition
+  -w, --wind         Shows location wind condition
   -g, --general      Shows location general information
 ```
 
