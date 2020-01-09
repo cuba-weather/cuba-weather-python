@@ -1,49 +1,52 @@
 #!/usr/bin/env python3
 
-import argparse
-import json
-import urllib.parse
-import urllib.request
+from argparse import ArgumentParser
+from json import loads
 from urllib.error import HTTPError
+from urllib.parse import quote
+from urllib.request import urlopen
 
-__version__ = "0.0.2"
+__version__ = '0.0.2'
 
-API = "https://www.redcuba.cu/api/weather_get_summary/{location}"
+API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
 
 
 class RCApiClient:
-    data = False
 
     def __init__(self, location: str):
-        escaped_location = urllib.parse.quote(location)
+        escaped_location = quote(location)
         url = API.format(location=escaped_location)
-        response = urllib.request.urlopen(url)
+        response = urlopen(url)
         content = response.read()
         if type(content) == bytes:
             content = content.decode()
-        self.data = json.loads(content)
+        self.data = loads(content)
 
-    def getTemperature(self) -> str:
-        return self.data["data"]["temp"]
+    @property
+    def temperature(self) -> str:
+        return self.data['data']['temp']
 
-    def getHumidity(self) -> str:
-        return self.data["data"]["humidity"]
+    @property
+    def humidity(self) -> str:
+        return self.data['data']['humidity']
 
-    def getPressure(self) -> str:
-        return self.data["data"]["pressure"]
+    @property
+    def pressure(self) -> str:
+        return self.data['data']['pressure']
 
-    def getGeneral(self) -> str:
-        return self.data["data"]["descriptionWeather"]
+    @property
+    def general(self) -> str:
+        return self.data['data']['descriptionWeather']
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("location", type=str, help="Location name")
-    parser.add_argument("-v", "--version", help="Shows program version", action="store_true")
-    parser.add_argument("-t", "--temperature", help="Shows location temperature", action="store_true")
-    parser.add_argument("-u", "--humidity", help="Shows location humidity", action="store_true")
-    parser.add_argument("-p", "--pressure", help="Shows location pressure", action="store_true")
-    parser.add_argument("-g", "--general", help="Shows location general information", action="store_true")
+    parser = ArgumentParser()
+    parser.add_argument('location', type=str, help='Location name')
+    parser.add_argument('-v', '--version', help='Shows program version', action='store_true')
+    parser.add_argument('-t', '--temperature', help='Shows location temperature', action='store_true')
+    parser.add_argument('-u', '--humidity', help='Shows location humidity', action='store_true')
+    parser.add_argument('-p', '--pressure', help='Shows location pressure', action='store_true')
+    parser.add_argument('-g', '--general', help='Shows location general information', action='store_true')
 
     args = parser.parse_args()
 
@@ -51,7 +54,7 @@ def main():
         c = RCApiClient(args.location)
     except HTTPError as ex:
         if ex.code == 404:
-            print("Location not found, try checking your orthography or use a near by location.")
+            print('Location not found, try checking your orthography or use a near by location.')
         else:
             raise Exception(ex)
         return
@@ -59,27 +62,20 @@ def main():
     if args.version:
         print(__version__)
     if args.general:
-        print(c.getGeneral())
+        print(c.general)
     if args.temperature:
-        print("Temperature: {temp}°C".format(temp=c.getTemperature()))
+        print('Temperature: {temp}°C'.format(temp=c.temperature))
     if args.humidity:
-        print("Humidity: {hum}%".format(hum=c.getHumidity()))
+        print('Humidity: {hum}%'.format(hum=c.humidity))
     if args.pressure:
-        print("Pressure: {hpa} hpa".format(hpa=c.getPressure()))
+        print('Pressure: {hpa} hpa'.format(hpa=c.pressure))
 
-    if (
-        args.location
-        and args.version == False
-        and args.temperature == False
-        and args.humidity == False
-        and args.pressure == False
-        and args.general == False
-    ):
-        print(c.getGeneral())
-        print("Temperature: {temp}°C".format(temp=c.getTemperature()))
-        print("Humidity: {hum}%".format(hum=c.getHumidity()))
-        print("Pressure: {hpa} hpa".format(hpa=c.getPressure()))
+    if args.location and not any([args.version, args.temperature, args.humidity, args.pressure, args.general]):
+        print(c.general)
+        print('Temperature: {temp}°C'.format(temp=c.temperature))
+        print('Humidity: {hum}%'.format(hum=c.humidity))
+        print('Pressure: {hpa} hpa'.format(hpa=c.pressure))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
