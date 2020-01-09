@@ -6,7 +6,7 @@ from urllib.error import HTTPError
 from urllib.parse import quote
 from urllib.request import urlopen
 
-__version__ = '0.0.4'
+__version__ = '0.0.5'
 
 API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
 
