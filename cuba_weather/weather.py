@@ -8,6 +8,8 @@ from urllib.error import HTTPError
 from urllib.parse import quote
 from urllib.request import urlopen
 
+from finder import get_location
+
 __version__ = '0.0.6'
 
 API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
@@ -16,6 +18,7 @@ API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
 class RCApiClient:
 
     def __init__(self, location: str):
+        location = get_location(location)
         escaped_location = quote(location)
         url = API.format(location=escaped_location)
         response = urlopen(url)
