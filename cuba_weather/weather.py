@@ -35,6 +35,10 @@ class RCApiClient:
         return self.data['data']['pressure']
 
     @property
+    def wind(self) -> str:
+        return self.data['data']['windstring']
+
+    @property
     def general(self) -> str:
         return self.data['data']['descriptionWeather']
 
@@ -46,6 +50,7 @@ def main():
     parser.add_argument('-t', '--temperature', help='show location temperature', action='store_true')
     parser.add_argument('-u', '--humidity', help='show location humidity', action='store_true')
     parser.add_argument('-p', '--pressure', help='show location pressure', action='store_true')
+    parser.add_argument('-w', '--wind', help='show location wind', action='store_true')
     parser.add_argument('-g', '--general', help='show location general information', action='store_true')
 
     args = parser.parse_args()
@@ -69,12 +74,16 @@ def main():
         print('Humidity: {hum}%'.format(hum=c.humidity))
     if args.pressure:
         print('Pressure: {hpa} hpa'.format(hpa=c.pressure))
+    if args.wind:
+        print('Wind: {wind}'.format(wind=c.wind))
 
-    if args.location and not any([args.version, args.temperature, args.humidity, args.pressure, args.general]):
+    params = [args.version, args.temperature, args.humidity, args.pressure, args.wind, args.general]
+    if args.location and not any(params):
         print(c.general)
         print('Temperature: {temp}°C'.format(temp=c.temperature))
         print('Humidity: {hum}%'.format(hum=c.humidity))
         print('Pressure: {hpa} hpa'.format(hpa=c.pressure))
+        print('Wind: {wind}'.format(wind=c.wind))
 
 
 if __name__ == '__main__':
