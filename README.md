@@ -13,7 +13,7 @@ pip install git+https://github.com/daxslab/cuba-weather
 ## Usage
 
 ```[bash]
-usage: cuba-weather.py [-h] [-v] [-d] [-t] [-u] [-p] [-w] [-g] location
+usage: cuba-weather.py [-h] [-v] [-c] [-t] [-d] [-u] [-p] [-w] [-g] location
 
 positional arguments:
   location           location name
@@ -21,8 +21,9 @@ positional arguments:
 optional arguments:
   -h, --help         show this help message and exit
   -v, --version      show program version
-  -d, --timestamp    show location timestamp
+  -c, --city-name    show location city name
   -t, --temperature  show location temperature
+  -d, --timestamp    show location timestamp
   -u, --humidity     show location humidity
   -p, --pressure     show location pressure
   -w, --wind         show location wind

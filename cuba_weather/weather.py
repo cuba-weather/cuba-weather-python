@@ -8,7 +8,7 @@ from urllib.error import HTTPError
 from urllib.parse import quote
 from urllib.request import urlopen
 
-__version__ = '0.0.6'
+__version__ = '0.0.7'
 
 API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
 
@@ -23,6 +23,10 @@ class RCApiClient:
         if type(content) == bytes:
             content = content.decode()
         self.data = loads(content)
+
+    @property
+    def city_name(self) -> str:
+        return self.data['data']['cityName']
 
     @property
     def timestamp(self) -> datetime:
@@ -53,8 +57,9 @@ def main():
     parser = ArgumentParser()
     parser.add_argument('location', type=str, help='location name')
     parser.add_argument('-v', '--version', help='show program version', action='store_true')
-    parser.add_argument('-d', '--timestamp', help='show location timestamp', action='store_true')
+    parser.add_argument('-c', '--city-name', help='show location city name', action='store_true')
     parser.add_argument('-t', '--temperature', help='show location temperature', action='store_true')
+    parser.add_argument('-d', '--timestamp', help='show location timestamp', action='store_true')
     parser.add_argument('-u', '--humidity', help='show location humidity', action='store_true')
     parser.add_argument('-p', '--pressure', help='show location pressure', action='store_true')
     parser.add_argument('-w', '--wind', help='show location wind', action='store_true')
@@ -75,10 +80,12 @@ def main():
         print(__version__)
     if args.general:
         print(c.general)
-    if args.timestamp:
-        print('Timestamp: {timestamp}'.format(timestamp=c.timestamp))
+    if args.city_name:
+        print('City Name: {city_name}'.format(city_name=c.city_name))
     if args.temperature:
         print('Temperature: {temp}°C'.format(temp=c.temperature))
+    if args.timestamp:
+        print('Timestamp: {timestamp}'.format(timestamp=c.timestamp))
     if args.humidity:
         print('Humidity: {hum}%'.format(hum=c.humidity))
     if args.pressure:
@@ -88,8 +95,9 @@ def main():
 
     params = [
         args.version,
-        args.timestamp,
+        args.city_name,
         args.temperature,
+        args.timestamp,
         args.humidity,
         args.pressure,
         args.wind,
@@ -98,6 +106,7 @@ def main():
 
     if args.location and not any(params):
         print(c.general)
+        print('City Name: {city_name}'.format(city_name=c.city_name))
         print('Temperature: {temp}°C'.format(temp=c.temperature))
         print('Timestamp: {timestamp}'.format(timestamp=c.timestamp))
         print('Humidity: {hum}%'.format(hum=c.humidity))
