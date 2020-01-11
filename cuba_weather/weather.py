@@ -9,7 +9,7 @@ from urllib.request import urlopen
 
 from finder import get_location
 
-__version__ = '0.0.8'
+__version__ = '0.0.9'
 
 API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
 
@@ -57,15 +57,8 @@ class RCApiClient:
 
 def main():
     parser = ArgumentParser()
-    parser.add_argument('-v', '--version', help='show program version', action='store_true')
-
-    args = parser.parse_args()
-
-    if args.version:
-        print(__version__)
-        return
-
     parser.add_argument('location', type=str, help='location name')
+    parser.add_argument('-v', '--version', help='show program version', action='store_true')
     parser.add_argument('-c', '--city-name', help='show location city name', action='store_true')
     parser.add_argument('-t', '--temperature', help='show location temperature', action='store_true')
     parser.add_argument('-d', '--timestamp', help='show location timestamp', action='store_true')
@@ -75,6 +68,10 @@ def main():
     parser.add_argument('-g', '--general', help='show location general information', action='store_true')
 
     args = parser.parse_args()
+
+    if args.version:
+        print(__version__)
+        return
 
     try:
         c = RCApiClient(args.location)
