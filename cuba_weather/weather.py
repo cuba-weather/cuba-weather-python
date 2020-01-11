@@ -10,7 +10,7 @@ from urllib.request import urlopen
 
 from finder import get_location
 
-__version__ = '0.0.7'
+__version__ = '0.0.8'
 
 API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
 
