@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
 from argparse import ArgumentParser
-from urllib.error import HTTPError
 
 try:
-    from .api import RCApiClient
+    from .api import InvalidLocation, RCApiClient
 except:
-    from api import RCApiClient
+    from api import InvalidLocation, RCApiClient
 
 __version__ = '0.0.9'
 
@@ -33,11 +32,9 @@ def main():
 
     try:
         weather = api.get(args.location)
-    except HTTPError as ex:
-        if ex.code == 404:
-            print('Location not found, try checking your orthography or use a near by location.')
-        else:
-            raise Exception(ex)
+    except InvalidLocation:
+        suggestion = api.suggestion(args.location)
+        print('Location not found, maybe you are asking about {suggestion}.'.format(suggestion=suggestion))
         return
 
     if args.general:
