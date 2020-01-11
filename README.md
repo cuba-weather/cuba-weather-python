@@ -45,9 +45,11 @@ When just speciying the location and no other arguments, all the available infor
 ```[python3]
 from cuba_weather import RCApiClient
 
+location_input = input()
+
 api = RCApiClient()
 
-weather = api.get(args.location, suggestion=True)
+weather = api.get(location_input, suggestion=True)
 
 print(weather)
 ```
