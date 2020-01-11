@@ -20,7 +20,7 @@ class RCApiClient:
         try:
             location = get_location(location)
             if suggestion:
-                location = self.suggestion(location)
+                location = get_suggestion(location)
             escaped_location = quote(location)
             url = URL.format(location=escaped_location)
             response = urlopen(url)
@@ -37,7 +37,7 @@ class RCApiClient:
                 raise Exception(ex)
 
     def suggestion(self, location: str) -> str:
-        return get_suggestion(location)
+        return get_suggestion(get_location(location))
 
 
 class InvalidLocation(Exception):
