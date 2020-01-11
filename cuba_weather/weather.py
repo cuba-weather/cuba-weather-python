@@ -2,7 +2,6 @@
 
 from argparse import ArgumentParser
 from datetime import datetime
-from dateutil.parser import parse
 from json import loads
 from urllib.error import HTTPError
 from urllib.parse import quote
@@ -32,7 +31,8 @@ class RCApiClient:
 
     @property
     def timestamp(self) -> datetime:
-        return parse(self.data['data']['dt']['date'])
+        datetime_str = self.data['data']['dt']['date']
+        return datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S.%f')
 
     @property
     def temperature(self) -> str:
