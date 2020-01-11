@@ -23,36 +23,36 @@ class RCApiClient:
         content = response.read()
         if type(content) == bytes:
             content = content.decode()
-        self.data = loads(content)
+        self.data = loads(content)['data']
 
     @property
     def city_name(self) -> str:
-        return self.data['data']['cityName']
+        return self.data['cityName']
 
     @property
     def timestamp(self) -> datetime:
-        datetime_str = self.data['data']['dt']['date']
+        datetime_str = self.data['dt']['date']
         return datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S.%f')
 
     @property
     def temperature(self) -> str:
-        return self.data['data']['temp']
+        return self.data['temp']
 
     @property
     def humidity(self) -> str:
-        return self.data['data']['humidity']
+        return self.data['humidity']
 
     @property
     def pressure(self) -> str:
-        return self.data['data']['pressure']
+        return self.data['pressure']
 
     @property
     def wind(self) -> str:
-        return self.data['data']['windstring']
+        return self.data['windstring']
 
     @property
     def general(self) -> str:
-        return self.data['data']['descriptionWeather']
+        return self.data['descriptionWeather']
 
 
 def main():
