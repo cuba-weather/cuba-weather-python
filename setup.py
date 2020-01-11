@@ -25,8 +25,5 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
     ],
-    install_requires=[
-        'python-Levenshtein==0.12.0',
-    ],
     python_requires='>=3.6',
 )
