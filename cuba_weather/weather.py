@@ -57,8 +57,15 @@ class RCApiClient:
 
 def main():
     parser = ArgumentParser()
-    parser.add_argument('location', type=str, help='location name')
     parser.add_argument('-v', '--version', help='show program version', action='store_true')
+
+    args = parser.parse_args()
+
+    if args.version:
+        print(__version__)
+        return
+
+    parser.add_argument('location', type=str, help='location name')
     parser.add_argument('-c', '--city-name', help='show location city name', action='store_true')
     parser.add_argument('-t', '--temperature', help='show location temperature', action='store_true')
     parser.add_argument('-d', '--timestamp', help='show location timestamp', action='store_true')
@@ -78,8 +85,6 @@ def main():
             raise Exception(ex)
         return
 
-    if args.version:
-        print(__version__)
     if args.general:
         print(c.general)
     if args.city_name:
