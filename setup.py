@@ -1,12 +1,12 @@
 from setuptools import setup
 
-from cuba_weather.weather import __version__
+from cuba_weather.console import __version__
 
 setup(
     name='cuba_weather',
     version=__version__,
     packages=['cuba_weather'],
-    entry_points={'console_scripts': ['cuba-weather=cuba_weather.weather:main'],},
+    entry_points={'console_scripts': ['cuba-weather=cuba_weather.console:main'],},
     url='https://github.com/daxslab/cuba-weather',
     license='MIT',
     author='Cuban Open Source Community',
