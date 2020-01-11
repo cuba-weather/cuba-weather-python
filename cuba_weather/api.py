@@ -16,9 +16,11 @@ URL = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
 
 class RCApiClient:
 
-    def get(self, location: str) -> Weather:
+    def get(self, location: str, suggestion=False) -> Weather:
         try:
             location = get_location(location)
+            if suggestion:
+                location = self.suggestion(location)
             escaped_location = quote(location)
             url = URL.format(location=escaped_location)
             response = urlopen(url)
