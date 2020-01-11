@@ -7,7 +7,10 @@ from urllib.error import HTTPError
 from urllib.parse import quote
 from urllib.request import urlopen
 
-from finder import get_location
+try:
+    from .finder import get_location
+except:
+    from finder import get_location
 
 __version__ = '0.0.9'
 

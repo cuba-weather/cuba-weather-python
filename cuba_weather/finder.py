@@ -1,4 +1,7 @@
-from locations import locations
+try:
+    from .locations import locations
+except:
+    from locations import locations
 
 locations = sorted(locations, key=len)
 
