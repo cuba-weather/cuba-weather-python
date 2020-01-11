@@ -1,24 +1,17 @@
-from setuptools import setup, find_packages
-from distutils.util import convert_path
+from setuptools import setup
 
-with open('README.md', 'r') as fh:
-    long_description = fh.read()
-
-main_ns = {}
-ver_path = convert_path('cuba_weather/weather.py')
-with open(ver_path) as ver_file:
-    exec(ver_file.read(), main_ns)
+from cuba_weather.weather import __version__
 
 setup(
     name='cuba_weather',
-    version=main_ns['__version__'],
-    packages=find_packages(),
+    version=__version__,
+    packages=['cuba_weather'],
     entry_points={'console_scripts': ['cuba-weather=cuba_weather.weather:main'],},
     url='https://github.com/daxslab/cuba-weather',
     license='MIT',
     author='Cuban Open Source Community',
     description='Python3 client for (https://www.redcuba.cu) weather API',
-    long_description=long_description,
+    long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     classifiers=[
         'Programming Language :: Python :: 3',
