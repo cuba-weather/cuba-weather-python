@@ -26,6 +26,11 @@ def get_location(user_input: str) -> str:
     for location in locations:
         if lower_input in location.lower():
             return location
+    return get_suggestions(user_input)
+
+
+def get_suggestions(user_input: str) -> str:
+    lower_input = user_input.lower()
     best_location = locations[0].lower()
     best_distance = distance(lower_input, best_location)
     for i in range(1, len(locations)):
