@@ -20,6 +20,12 @@ class RCApiClient:
     '''
 
     def get(self, location: str, suggestion=False) -> Weather:
+        '''
+        Method that given a location of the user searches the known locations to
+        find the best match and returns the weather information. The best match
+        is considered as the known location of shorter length that contains the
+        given location.
+        '''
         try:
             location = get_location(location)
             if suggestion:
