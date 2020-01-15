@@ -1,3 +1,4 @@
+# Known locations
 locations = [
     'Consolación del Sur',
     'Guane',
