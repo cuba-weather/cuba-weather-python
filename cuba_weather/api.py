@@ -15,6 +15,9 @@ except:
 URL = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
 
 class RCApiClient:
+    '''
+    Class to provide the functionality of making API requests.
+    '''
 
     def get(self, location: str, suggestion=False) -> Weather:
         try:
