@@ -47,6 +47,11 @@ def get_location(user_input: str) -> str:
 
 
 def get_suggestion(user_input: str) -> str:
+    '''
+    Method that returns the best match of the given location with the known
+    locations. The best match is calculated using the Damerau-Levenshtein
+    distance.
+    '''
     lower_input = user_input.lower()
     best_location = locations[0].lower()
     best_distance = distance(lower_input, best_location)
