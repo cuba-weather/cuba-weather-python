@@ -2,6 +2,10 @@ from datetime import datetime
 
 
 class Weather:
+    '''
+    Model class for mapping the json returned by the https://www.redcuba.cu
+    weather API.
+    '''
 
     def __init__(self, data: dict):
         self.data = data
