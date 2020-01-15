@@ -34,6 +34,11 @@ def distance(s1, s2):
 
 
 def get_location(user_input: str) -> str:
+    '''
+    Method that returns the best match of the given location with the known
+    locations. The best match is considered as the known location of shorter
+    length that contains the given location.
+    '''
     lower_input = user_input.lower()
     for location in locations:
         if lower_input in location.lower():
