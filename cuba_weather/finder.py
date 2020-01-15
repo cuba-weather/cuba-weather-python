@@ -7,6 +7,15 @@ locations = sorted(locations, key=len)
 
 
 def distance(s1, s2):
+    '''
+    Implementation of Damerau-Levenshtein distance with transposition (also
+    sometimes calls unrestricted Damerau-Levenshtein distance).
+
+    It is the minimum number of operations needed to transform one string into
+    the other, where an operation is defined as an insertion, deletion, or
+    substitution of a single character, or a transposition of two adjacent
+    characters.
+    '''
     d = {}
     for i in range(-1, len(s1) + 1):
         d[i, -1] = i + 1
