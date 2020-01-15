@@ -46,6 +46,11 @@ class RCApiClient:
                 raise Exception(ex)
 
     def suggestion(self, location: str) -> str:
+        '''
+        Method that returns the best match of the given location with the known
+        locations. The best match is calculated using the Damerau-Levenshtein
+        distance.
+        '''
         return get_suggestion(get_location(location))
 
 
