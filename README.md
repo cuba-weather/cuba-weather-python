@@ -6,13 +6,21 @@ Python3 client for [www.redcuba.cu](https://www.redcuba.cu) weather API.
 
 ## Install
 
-```[bash]
+```bash
 pip install git+https://github.com/daxslab/cuba-weather
+```
+
+You can also clone or download this repository and at the root of the project do:
+
+```bash
+python setup.py install
 ```
 
 ## Usage
 
-```[bash]
+### CLI
+
+```bash
 usage: cuba-weather.py [-h] [-v] [-c] [-t] [-d] [-u] [-p] [-w] [-g] location
 
 positional arguments:
@@ -31,3 +39,17 @@ optional arguments:
 ```
 
 When just speciying the location and no other arguments, all the available information is displayed.
+
+### Package
+
+```python3
+from cuba_weather import RCApiClient
+
+location_input = input()
+
+api = RCApiClient()
+
+weather = api.get(location_input, suggestion=True)
+
+print(weather)
+```

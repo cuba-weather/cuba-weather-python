@@ -1,29 +1,14 @@
-#!/usr/bin/env python3
-
-from argparse import ArgumentParser
 from datetime import datetime
-from json import loads
-from urllib.error import HTTPError
-from urllib.parse import quote
-from urllib.request import urlopen
 
-from finder import get_location
 
-__version__ = '0.0.9'
+class Weather:
+    '''
+    Model class for mapping the json returned by the https://www.redcuba.cu
+    weather API.
+    '''
 
-API = 'https://www.redcuba.cu/api/weather_get_summary/{location}'
-
-class RCApiClient:
-
-    def __init__(self, location: str):
-        location = get_location(location)
-        escaped_location = quote(location)
-        url = API.format(location=escaped_location)
-        response = urlopen(url)
-        content = response.read()
-        if type(content) == bytes:
-            content = content.decode()
-        self.data = loads(content)['data']
+    def __init__(self, data: dict):
+        self.data = data
 
     @property
     def city_name(self) -> str:
@@ -54,69 +39,23 @@ class RCApiClient:
     def general(self) -> str:
         return self.data['descriptionWeather']
 
+    def __str__(self):
+        return self.__repr__()
 
-def main():
-    parser = ArgumentParser()
-    parser.add_argument('location', type=str, help='location name')
-    parser.add_argument('-v', '--version', help='show program version', action='store_true')
-    parser.add_argument('-c', '--city-name', help='show location city name', action='store_true')
-    parser.add_argument('-t', '--temperature', help='show location temperature', action='store_true')
-    parser.add_argument('-d', '--timestamp', help='show location timestamp', action='store_true')
-    parser.add_argument('-u', '--humidity', help='show location humidity', action='store_true')
-    parser.add_argument('-p', '--pressure', help='show location pressure', action='store_true')
-    parser.add_argument('-w', '--wind', help='show location wind', action='store_true')
-    parser.add_argument('-g', '--general', help='show location general information', action='store_true')
-
-    args = parser.parse_args()
-
-    if args.version:
-        print(__version__)
-        return
-
-    try:
-        c = RCApiClient(args.location)
-    except HTTPError as ex:
-        if ex.code == 404:
-            print('Location not found, try checking your orthography or use a near by location.')
-        else:
-            raise Exception(ex)
-        return
-
-    if args.general:
-        print(c.general)
-    if args.city_name:
-        print('City Name: {city_name}'.format(city_name=c.city_name))
-    if args.temperature:
-        print('Temperature: {temp}°C'.format(temp=c.temperature))
-    if args.timestamp:
-        print('Timestamp: {timestamp}'.format(timestamp=c.timestamp))
-    if args.humidity:
-        print('Humidity: {hum}%'.format(hum=c.humidity))
-    if args.pressure:
-        print('Pressure: {hpa} hpa'.format(hpa=c.pressure))
-    if args.wind:
-        print('Wind: {wind}'.format(wind=c.wind))
-
-    params = [
-        args.version,
-        args.city_name,
-        args.temperature,
-        args.timestamp,
-        args.humidity,
-        args.pressure,
-        args.wind,
-        args.general
-    ]
-
-    if args.location and not any(params):
-        print(c.general)
-        print('City Name: {city_name}'.format(city_name=c.city_name))
-        print('Temperature: {temp}°C'.format(temp=c.temperature))
-        print('Timestamp: {timestamp}'.format(timestamp=c.timestamp))
-        print('Humidity: {hum}%'.format(hum=c.humidity))
-        print('Pressure: {hpa} hpa'.format(hpa=c.pressure))
-        print('Wind: {wind}'.format(wind=c.wind))
-
-
-if __name__ == '__main__':
-    main()
+    def __repr__(self):
+        result = 'City Name: {city_name}\n'
+        result += 'Temperature: {temp}°C\n'
+        result += 'Timestamp: {timestamp}\n'
+        result += 'Humidity: {hum}%\n'
+        result += 'Pressure: {hpa} hpa\n'
+        result += 'Wind: {wind}\n'
+        result += '{general}'
+        result = result.format(
+            city_name=self.city_name,
+            temp=self.temperature,
+            timestamp=self.timestamp,
+            hum=self.humidity,
+            hpa=self.pressure,
+            wind=self.wind,
+            general=self.general)
+        return result
