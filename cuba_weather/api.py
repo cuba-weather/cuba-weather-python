@@ -33,7 +33,6 @@ class RCApiClient:
             escaped_location = quote(location)
             url = URL.format(location=escaped_location)
             response = urlopen(url)
-            response = urlopen(url)
             content = response.read()
             if type(content) == bytes:
                 content = content.decode()
