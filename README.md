@@ -4,6 +4,8 @@
 
 Application programming interface of the Cuba Weather project implemented in Python.
 
+Currently the weather information is obtained from the Cuban search engine [www.redcuba.cu](https://www.redcuba.cu).
+
 ## Install
 
 ```bash
