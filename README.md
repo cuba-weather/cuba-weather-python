@@ -1,13 +1,15 @@
-# Cuba Weather
+# Cuba Weather Python
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
-Python3 client for [www.redcuba.cu](https://www.redcuba.cu) weather API.
+Application programming interface of the Cuba Weather project implemented in Python.
+
+Currently the weather information is obtained from the Cuban search engine [www.redcuba.cu](https://www.redcuba.cu).
 
 ## Install
 
 ```bash
-pip install git+https://github.com/daxslab/cuba-weather
+pip install git+https://github.com/cuba-weather/cuba-weather-python
 ```
 
 You can also clone or download this repository and at the root of the project do:
