@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
-Python3 client for [www.redcuba.cu](https://www.redcuba.cu) weather API.
+Application programming interface of the Cuba Weather project implemented in Python.
 
 ## Install
 
