@@ -9,7 +9,7 @@ Currently the weather information is obtained from the Cuban search engine [www.
 ## Install
 
 ```bash
-pip install git+https://github.com/daxslab/cuba-weather
+pip install git+https://github.com/cuba-weather/cuba-weather-python
 ```
 
 You can also clone or download this repository and at the root of the project do:
