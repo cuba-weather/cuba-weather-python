@@ -22,6 +22,10 @@ class Weather:
     @property
     def temperature(self) -> str:
         return self.data['temp']
+    
+    @property
+    def temperature_fahrenheit(self) -> str:
+        return (self.data['temp'] * 9/5) + 32
 
     @property
     def humidity(self) -> str:
@@ -44,7 +48,7 @@ class Weather:
 
     def __repr__(self):
         result = 'City Name: {city_name}\n'
-        result += 'Temperature: {temp}°C\n'
+        result += 'Temperature: {temp}°C / {temp_f}°F\n'
         result += 'Timestamp: {timestamp}\n'
         result += 'Humidity: {hum}%\n'
         result += 'Pressure: {hpa} hpa\n'
@@ -53,6 +57,7 @@ class Weather:
         result = result.format(
             city_name=self.city_name,
             temp=self.temperature,
+            temp=self.temperature_fahrenheit,
             timestamp=self.timestamp,
             hum=self.humidity,
             hpa=self.pressure,
