@@ -57,7 +57,7 @@ class Weather:
         result = result.format(
             city_name=self.city_name,
             temp=self.temperature,
-            temp=self.temperature_fahrenheit,
+            temp_f=self.temperature_fahrenheit,
             timestamp=self.timestamp,
             hum=self.humidity,
             hpa=self.pressure,
